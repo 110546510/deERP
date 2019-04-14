@@ -9,4 +9,14 @@
 // | Author: yunwuxin <448901948@qq.com>
 // +----------------------------------------------------------------------
 
-return [];
+return [
+    'SystemInfo'=>[
+        'name'=>'', //公司名称
+        'price_leve'=>[
+            '1'=>'near price',
+            '2'=>'source price'
+        ],
+
+    ],
+    'GoodsTO'=>[],
+];
