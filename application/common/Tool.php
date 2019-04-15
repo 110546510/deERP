@@ -27,17 +27,6 @@ class Tool
      */
     public static function pinYinB($string,$num)
     {
-        $p = new Pinyin();
-        return strtoupper(substr($p->output($string),0,$num));
-    }
-
-    public static function accessResponse()
-    {
-        
-    }
-
-    public static function errorResponse()
-    {
-        
+        return strtoupper(substr(Pinyin::getPinyin()->output($string),0,$num));
     }
 }

@@ -16,4 +16,8 @@ class ClientSupplierM extends Model
     protected $name = 'client_supplier';
 
     protected $hidden = [];
+
+    public function OrganizationM(){
+        return $this->hasOne("OrganizationM",'belong','belong');
+    }
 }

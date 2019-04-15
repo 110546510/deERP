@@ -10,10 +10,13 @@ namespace app\model;
 
 use think\Model;
 
-class Role extends Model
+class RoleM extends Model
 {
     protected $name = 'role';
 
     protected $hidden = [];
 
+    public function ModelM(){
+        return $this->hasOne("ModelM",'id','m_id');
+    }
 }

@@ -15,4 +15,8 @@ class StaffClockM extends Model
     protected $name = 'staff_clock';
 
     protected $hidden = [];
+    
+    public function StaffLM(){
+        return $this->hasOne("StaffLM",'jobnumber','staff_id');
+    }
 }

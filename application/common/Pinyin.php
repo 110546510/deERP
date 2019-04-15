@@ -11,9 +11,12 @@ namespace extend\Tool;
 
 /**
  * 汉字转化为拼音类
+ *
+ * 修改为单例模式
  */
 class Pinyin {
 
+    private static $_instance = null;
 
     /**
      * 汉字ASCII码库
@@ -23,14 +26,25 @@ class Pinyin {
 
 
     /**
-     * 构造函数
+     * 私有构造函数
      * @return void
      */
-    public function __construct() {
+    private function __construct() {
 
     }
 
-
+    /**
+     * 获取对象
+     * @return Pinyin|null
+     */
+    public static function getPinyin()
+    {
+        if (!(self::$_instance instanceof Pinyin)){
+            self::$_instance = new Pinyin();
+        }
+        return self::$_instance;
+    }
+    
     /**
      * 汉字转化并输出拼音
      * @param string $str 所要转化拼音的汉字

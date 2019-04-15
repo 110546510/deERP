@@ -16,4 +16,11 @@ class ProductInventroyM extends Model
 
     protected $hidden = [];
 
+    public function WarehouseM(){
+        return $this->hasOne("WarehouseM",'id','w_id');
+    }
+
+    public function prouduct(){
+        return $this->hasOne("prouduct",'id','p_id');
+    }
 }

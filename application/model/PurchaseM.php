@@ -15,4 +15,8 @@ class PurchaseM extends Model
     protected $name = 'purchase';
 
     protected $hidden = [];
+    
+    public function ClientSupplierM(){
+        return $this->hasOne("ClientSupplierM",'id','client_id');
+    }
 }
