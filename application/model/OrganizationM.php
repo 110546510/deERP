@@ -14,4 +14,6 @@ use think\Model;
 class OrganizationM extends Model
 {
     protected $name = 'Organization';
+
+    protected $hidden = [];
 }

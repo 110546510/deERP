@@ -12,9 +12,8 @@ use think\Model;
 
 class ModelM extends Model
 {
+    protected $name = 'Model';
 
-protected $name = 'Model';
-
-protected $hidden = [];
+    protected $hidden = [];
 
 }
