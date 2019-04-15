@@ -22,4 +22,10 @@ class StaffLM extends Model
     public function OrganizationM(){
         return $this->hasOne('OrganizationM','id','belong');
     }
+
+    public function getStatusAttr($value)
+    {
+        $res = ['实习期','在职','离职'];
+        return $res[$value];
+    }
 }

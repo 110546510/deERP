@@ -15,4 +15,10 @@ class WarehouseM extends Model
     protected $name = 'warehouse';
 
     protected $hidden = [];
+
+    public function getStatusAttr($value)
+    {
+        $res = ['存在','移除'];
+        return $res[$value];
+    }
 }

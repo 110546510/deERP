@@ -19,4 +19,16 @@ class PurchaseM extends Model
     public function ClientSupplierM(){
         return $this->hasOne("ClientSupplierM",'id','client_id');
     }
+
+    public function getStatusAttr($value)
+    {
+        $res = ['已完成','已付款','已作废'];
+        return $res[$value];
+    }
+
+    public function getPaymentAttr($value)
+    {
+        $res = ['现付'];
+        return $res[$value];
+    }
 }

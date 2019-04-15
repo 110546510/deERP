@@ -23,4 +23,10 @@ class ProductInventroyM extends Model
     public function prouduct(){
         return $this->hasOne("prouduct",'id','p_id');
     }
+
+    public function getStatusAttr($value)
+    {
+        $res = ['充足','超额','不足','无货','停产'];
+        return $res[$value];
+    }
 }

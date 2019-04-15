@@ -19,4 +19,10 @@ class ProductM extends Model
     public function OrganizationM(){
         return $this->hasOne("OrganizationM",'id','belong');
     }
+
+    public function getStatusAttr($value)
+    {
+        $res = ['在售','缺货','下架'];
+        return $res[$value];
+    }
 }

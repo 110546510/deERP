@@ -15,5 +15,6 @@ class OrganizationM extends Model
 {
     protected $name = 'Organization';
 
-    protected $hidden = [];
+    protected $hidden = ['who'];
+
 }
