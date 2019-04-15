@@ -15,7 +15,11 @@
 //
 //Route::get('hello/:name', 'index/hello');
 
-Route::get('/','index/index');
+Route::post('/','index/index');
+
+Route::miss(function (){
+    return 404;
+});
 
 return [
 

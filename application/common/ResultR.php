@@ -10,23 +10,24 @@ namespace app\common;
 
 class ResultR
 {
-    private $result = null;
+    private static $result = null;
 
-    public function result($code,$result,$message,$data)
+    public static function result($code,$result,$message,$data)
     {
-        $this->result['code'] = $code;
-        $this->result['result']= $result;
-        $this->result['message']= $message;
-        $this->result['data']= $data;
+        self::$result['code'] = $code;
+        self::$result['result']= $result;
+        self::$result['message']= $message;
+        self::$result['data']= $data;
+        return self::$result;
     }
 
-    public function accessResult($data)
+    public static function accessResult($data)
     {
-        return $this->result('2000','access','ok',$data);
+        return self::result('2000','access','ok',$data);
     }
 
-    public function errorResult($message,$data)
+    public static function errorResult($message,$data)
     {
-        return $this->result('4004','error',$message,$data);
+        return self::result('4004','error',$message,$data);
     }
 }
