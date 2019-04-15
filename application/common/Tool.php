@@ -31,4 +31,13 @@ class Tool
         return strtoupper(substr($p->output($string),0,$num));
     }
 
+    public static function accessResponse()
+    {
+        
+    }
+
+    public static function errorResponse()
+    {
+        
+    }
 }
