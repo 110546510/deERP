@@ -8,7 +8,6 @@
         }
     ],
     "require": {
-        "endroid/qr-code": "^3.5",
         "monolog/monolog": "^1.24"
     }
 }

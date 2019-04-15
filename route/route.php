@@ -17,6 +17,8 @@
 
 Route::post('/','index/index');
 
+Route::get('test','index/gets');
+
 Route::miss(function (){
     return 404;
 });

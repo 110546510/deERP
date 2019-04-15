@@ -3,6 +3,7 @@ namespace app\index\controller;
 
 use app\common\ResultR;
 use app\model\StaffLM;
+use think\facade\Config;
 
 class Index
 {
@@ -24,5 +25,10 @@ class Index
 
     public function all(){
         return ResultR::accessResult(StaffLM::all());
+    }
+
+    public function gets()
+    {
+        dump(Config::pull('mongodb'));
     }
 }

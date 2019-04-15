@@ -25,7 +25,7 @@ class Excel
 
     public function __construct($dirname)
     {
-        $this->FileType = PHPExcel_IOFactory::identify($dirname);
+        $this->FileType = \PHPExcel_IOFactory::identify($dirname);
         $this->dirname = $dirname;
     }
 
