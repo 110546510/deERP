@@ -25,8 +25,12 @@ return [
     'params'          => [],
     // 数据库编码默认采用utf8
     'charset'         => 'utf8',
+    // 主键名
+    'pk'              => '_id',
+    // 主键类型
+    'pk_type'         => 'ObjectID',
     // 数据库表前缀
-    'prefix'          => 'd_',
+    'prefix'          => '',
     // 数据库调试模式
     'debug'           => true,
     // 数据库部署方式:0 集中式(单一服务器),1 分布式(主从服务器)
@@ -37,8 +41,6 @@ return [
     'master_num'      => 1,
     // 指定从服务器序号
     'slave_no'        => '',
-    // 自动读取主库数据
-    'read_master'     => false,
     // 是否严格检查字段是否存在
     'fields_strict'   => true,
     // 数据集返回类型
@@ -49,12 +51,10 @@ return [
     'datetime_format' => 'Y-m-d H:i:s',
     // 是否需要进行SQL性能分析
     'sql_explain'     => false,
-    // Builder类
-    'builder'         => '',
-    // Query类
-    'query'           => '\\think\\db\\Query',
-    // 是否需要断线重连
-    'break_reconnect' => false,
-    // 断线标识字符串
-    'break_match_str' => [],
+    // 是否_id转换为id
+    'pk_convert_id'   => false,
+    // typeMap
+    'type_map'        => ['root' => 'array', 'document' => 'array'],
+    // Query对象
+    'query'           => '\\think\\mongo\\Query',
 ];

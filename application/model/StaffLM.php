@@ -14,6 +14,8 @@ class StaffLM extends Model
 {
     protected $name = 'staff_login';
 
+    protected $hidden = ['password'];
+
     public function StaffInfoM()
     {
         return $this->hasOne('StaffInfoM','telephone','username');

@@ -3,11 +3,20 @@ namespace app\index\controller;
 
 use app\common\ResultR;
 use app\model\StaffLM;
-use think\facade\Config;
 
 class Index
 {
-    public function index($name,$pwd){
+
+    /**
+     * 登陆校验
+     * @param $name
+     * @param $pwd
+     * @return \think\response\Json
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function postPwd($name,$pwd){
         $pwd = substr(md5($pwd),21,10);
         $res = StaffLM::with('StaffInfoM')->where('username',$name)->where('password',$pwd)->select()->toArray();
         if($res){
@@ -17,18 +26,68 @@ class Index
         return json(ResultR::errorResult('用户名或密码错误','no data'));
     }
 
-    public function setpwd($name,$pwd)
+    /**
+     * 设置用户密码
+     * @param $name
+     * @param $pwd
+     * @return null
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
+     */
+    public function putStaffPwd($name,$pwd)
     {
         $pwd = substr(md5($pwd),21,10);
         return (StaffLM::where('username',$name)->update(['password'=>$pwd]) > 0 )?ResultR::accessResult('ok'):ResultR::errorResult('未知错误','no data');
     }
 
-    public function all(){
-        return ResultR::accessResult(StaffLM::all());
+    /**
+     * 查询全部
+     * @return null
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function getStaffLMS(){
+        return $this->getStaffLM(1,1);
     }
 
-    public function gets()
+    /**
+     * 指定查询
+     * @param $field
+     * @param $name
+     * @return \think\response\Json
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function getStaffLM($field,$name)
     {
-        dump(Config::pull('mongodb'));
+        $res = StaffLM::where($field,$name)->select()->toArray();
+        return (isset($res))?ResultR::accessResult($res):ResultR::hintResult('没有数据','no data');
     }
+
+    /**
+     * 新建用户
+     * @param $data
+     * @return \think\response\Json
+     */
+    public function postStaffLM($data)
+    {
+        $res = StaffLM::create($data);
+        return ($res > 0 )?ResultR::accessResult($res) : ResultR::hintResult('没有数据');
+    }
+
+    /**
+     * 删除用户
+     * @param $status
+     * @return \think\response\Json
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
+     */
+    public function deleteStaffLM($status)
+    {
+        $res = StaffLM::where('status',$status)->update([]);
+        return ($res > 0 )?ResultR::accessResult($res):ResultR::hintResult('删除失败');
+    }
+
 }

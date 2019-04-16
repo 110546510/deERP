@@ -15,59 +15,66 @@ class Code
 
     protected $newFile = false;
 
-    public function add()
-    {
-        $value = 'http://www.learnphp.cn'; //二维码内容
+    private $errorCorrectionLevel = 'L';//容错级别决定识别的区域L、M、H
 
-        $errorCorrectionLevel = 'L';//容错级别
+    private $matrixPointSize = 10;//像素点大小
 
-        $matrixPointSize = 6;//生成图片大小
+    private $padding = 2;
 
-//生成二维码图片
+    private $address = '';
 
-        \QRcode::png($value, 'qrcode.png', $errorCorrectionLevel, $matrixPointSize, 2);
+    /**
+     * @param $content 二维码内容
+     * @param $level 容错级别
+     * @param $pointsize 像素大小
+     * @param $padding 外边框宽度
+     * @return bool
+     */
+    public function TwoCodePng($content,$level,$pointsize,$padding){
+        $level = ($level)?:$this->errorCorrectionLevel;
+        $pointsize = ($pointsize)?:$this->matrixPointSize;
+        $padding = ($padding)?$padding:$this->padding;
+        \QRcode::png($content, $this->address, $level, $pointsize, $padding);
+        return file_exists($this->address);
+    }
 
-        $logo = 'logo.png';//准备好的logo图片
+    public function SetName($name){
+        $this->address += $name;
+        return $this;
+    }
 
-        $QR = 'qrcode.png';//已经生成的原始二维码图
+    public function SetAddress($address){
+        $this->address = $address;
+        return $this;
+    }
 
-
-
-        if ($logo !== FALSE) {
-
-            $QR = imagecreatefromstring(file_get_contents($QR));
-
-            $logo = imagecreatefromstring(file_get_contents($logo));
-
-            $QR_width = imagesx($QR);//二维码图片宽度
-
-            $QR_height = imagesy($QR);//二维码图片高度
-
-            $logo_width = imagesx($logo);//logo图片宽度
-
-            $logo_height = imagesy($logo);//logo图片高度
-
-            $logo_qr_width = $QR_width / 5;
-
-            $scale = $logo_width/$logo_qr_width;
-
-            $logo_qr_height = $logo_height/$scale;
-
-            $from_width = ($QR_width - $logo_qr_width) / 2;
-
-//重新组合图片并调整大小
-
-            imagecopyresampled($QR, $logo, $from_width, $from_width, 0, 0, $logo_qr_width,
-
-                $logo_qr_height, $logo_width, $logo_height);
-
-        }
-
-//输出图片
-
-        imagepng($QR, 'helloweba.png');
-
-        echo '<img src="helloweba.png">';
+    /**
+     * 二维码带图片
+     * @param $content 二维码内容
+     * @param $address 存放位置
+     * @param $logo 图片位置
+     * @param $level 容错级别
+     * @param $pointsize 像素大小
+     * @param $padding 外边框宽度
+     * @return bool
+     */
+    public function TwoCodePngLogo($content,$logo,$level,$pointsize,$padding){
+        $level = ($level)?:$this->errorCorrectionLevel;
+        $pointsize = ($pointsize)?:$this->matrixPointSize;
+        $padding = ($padding)?:$this->padding;
+        \QRcode::png($content,$this->address,$level,$pointsize,$padding,true);
+        $QR = imagecreatefromstring(file_get_contents($this->address));
+        $logo = imagecreatefromstring(file_get_contents($logo));
+        $QR_width = imagesx($QR);
+        $logo_width = imagesx($logo);
+        $logo_height = imagesy($logo);
+        $logo_qr_width = $QR_width / 5;
+        $scale = $logo_width / $logo_qr_width;
+        $logo_qr_height = $logo_height / $scale;
+        $from_width = ($QR_width - $logo_qr_width) / 2;
+        imagecopyresampled($QR, $logo, $from_width, $from_width, 0, 0, $logo_qr_width, $logo_qr_height, $logo_width, $logo_height);
+        imagepng($QR,$this->address);
+        return file_exists($this->address);
     }
 
     /**

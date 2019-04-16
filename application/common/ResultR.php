@@ -18,7 +18,7 @@ class ResultR
         self::$result['result']= $result;
         self::$result['message']= $message;
         self::$result['data']= $data;
-        return self::$result;
+        return json(self::$result);
     }
 
     public static function accessResult($data)
@@ -29,5 +29,10 @@ class ResultR
     public static function errorResult($message,$data)
     {
         return self::result('4004','error',$message,$data);
+    }
+
+    public static function hintResult($message,$data)
+    {
+        return self::result('3002','hint',$message,$data);
     }
 }

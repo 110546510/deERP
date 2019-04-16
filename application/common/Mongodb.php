@@ -8,13 +8,19 @@
 
 namespace app\common;
 
-use think\Db;
-use think\facade\Config;
+use think\mongo\Connection;
 
 class Mongodb
 {
+    private $connection = null;
+
+    public function __construct()
+    {
+        $this->connection = Connection::instance(Config::pull('mongodb'));
+    }
+
     public function gets()
     {
-        Db::connect(Config::pull('mongodb'));
+        $this->connection->insert();
     }
 }
