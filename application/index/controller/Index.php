@@ -74,7 +74,7 @@ class Index
     public function postStaffLM($data)
     {
         $res = StaffLM::create($data);
-        return ($res > 0 )?ResultR::accessResult($res) : ResultR::hintResult('没有数据');
+        return ($res > 0 )?ResultR::accessResult($res) : ResultR::hintResult('没有数据','no data');
     }
 
     /**
@@ -84,10 +84,10 @@ class Index
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */
-    public function deleteStaffLM($status)
+    public function deleteStaffLM($status,$name)
     {
-        $res = StaffLM::where('status',$status)->update([]);
-        return ($res > 0 )?ResultR::accessResult($res):ResultR::hintResult('删除失败');
+        $res = StaffLM::where('username',$name)->update(['status'=>$status]);
+        return ($res > 0 )?ResultR::accessResult($res):ResultR::hintResult('删除失败','');
     }
 
 }
