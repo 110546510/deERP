@@ -15,9 +15,13 @@ class Index
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
      */
-    public function postLogin($name,$pwd){
+    public function getLogin($name,$pwd){
         $pwd = substr(md5($pwd),21,10);
-        $res = StaffLM::with('StaffInfoM')->where('username',$name)->where('password',$pwd)->select()->toArray();
+        $map = [
+            'username'=> $name,
+            'password' => $pwd
+        ];
+        $res = StaffLM::with('StaffInfoM')->where($map)->select()->toArray();
         if($res){
             $res[0]['Organization']  = StaffLM::with('OrganizationM')->where(['belong'=>$res[0]['belong']])->select()->toArray()[0]['organization_m'];
             return ResultR::accessResult($res[0]);
