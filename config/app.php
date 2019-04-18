@@ -60,7 +60,7 @@ return [
     // 默认控制器名
     'default_controller'     => 'Index',
     // 默认操作名
-    'default_action'         => 'postPwd',
+    'default_action'         => 'index',
     // 默认验证器
     'default_validate'       => '',
     // 默认的空模块名

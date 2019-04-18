@@ -1,0 +1,22 @@
+<html>
+<head>
+<meta charset="utf-8">
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+$.ajax({
+        url:' http://airide.xin/deERP/public',
+        type:"POST",
+        data:{
+            name:'18038848740',
+            pwd:'admin1234'
+        },
+        success:function (result) {
+            console.log(result);
+        },
+        error:function (err){
+            console.log(err);
+        }
+    });
+</script>
+</head>
+</html>

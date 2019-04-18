@@ -15,13 +15,13 @@
 //
 //Route::get('hello/:name', 'index/hello');
 
-Route::post('/','index/postPwd');
+//Route::post('/','index/postPwd')->allowCrossDomain();
 
 
 //Route::miss(function (){
 //    return 404;
 //});
-Route::controller('staff','index/index');
+Route::controller('staff','index/index')->allowCrossDomain();
 
 return [
 
