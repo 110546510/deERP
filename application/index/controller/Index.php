@@ -65,7 +65,7 @@ class Index
      */
     public function getStaffLM($field,$name)
     {
-        $res = StaffLM::where($field,$name)->select()->toArray();
+        $res = StaffLM::where($field,$name)->select();
         return (isset($res))?ResultR::accessResult($res):ResultR::hintResult('没有数据','no data');
     }
 
@@ -90,7 +90,7 @@ class Index
     public function deleteStaffLM($status,$name)
     {
         $res = StaffLM::where('username',$name)->update(['status'=>$status]);
-        return ($res > 0 )?ResultR::accessResult($res):ResultR::hintResult('删除失败','');
+        return (!empty($res))?ResultR::accessResult($res):ResultR::hintResult('删除失败','');
     }
 
 }

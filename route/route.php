@@ -22,6 +22,8 @@
 //    return 404;
 //});
 Route::controller('staff','index/index')->allowCrossDomain();
+Route::controller('organization','index/organization')->allowCrossDomain();
+Route::controller('staffInfo','index/StaffInfo')->allowCrossDomain();
 
 return [
 

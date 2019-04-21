@@ -5,7 +5,7 @@
  * Date: 2019-03-09
  * Time: 21:03
  */
-namespace extend\Tool;
+namespace app\common;
 
 class Tool
 {
