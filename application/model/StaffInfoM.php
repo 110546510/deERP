@@ -14,4 +14,8 @@ use think\Model;
 class StaffInfoM extends Model
 {
     protected $name = 'staff_information';
+
+    public function getHeaderAttr($value){
+        return config('erpconfig.sample.header').$value;
+    }
 }

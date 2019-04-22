@@ -74,7 +74,7 @@ class Index
      * @param $data
      * @return \think\response\Json
      */
-    public function postStaffLM($data)
+    public function newStaffLM($data)
     {
         $res = StaffLM::create($data);
         return ($res > 0 )?ResultR::accessResult($res) : ResultR::hintResult('没有数据','no data');

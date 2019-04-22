@@ -25,4 +25,8 @@ class ProductM extends Model
         $res = ['在售','缺货','下架'];
         return $res[$value];
     }
+
+    public function getHeaderAttr($value){
+        return config('erpconfig.sample.header').$value;
+    }
 }

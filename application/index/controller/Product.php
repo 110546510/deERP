@@ -14,6 +14,7 @@ use app\model\ProductM;
 
 class Product
 {
+
     public function lookProduct($map)
     {
         return ProductM::where($map)->select();
@@ -27,7 +28,7 @@ class Product
     public function getProduct()
     {
         $res = $this->lookProduct($map[1] = 1);
-        return (!empty($res))?ResultR::accessResult($res):;
+        return (!empty($res))?ResultR::accessResult($res):ResultR::hintResult('没有数据','');
     }
 
     public function postProduct($filed,$where)
@@ -36,6 +37,8 @@ class Product
         if(!in_array($filed,$arr)){
             return ResultR::hintResult('没有此项选择','');
         }
+        $res = $this->lookProduct([$filed =>$where]);
+        return (!empty($res))?ResultR::accessResult($res):ResultR::hintResult('','');
     }
 
     public function putProduct()
