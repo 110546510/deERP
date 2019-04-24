@@ -11,6 +11,7 @@ namespace app\index\controller;
 use app\common\Excel;
 use app\common\ResultR;
 use app\model\StaffInfoM;
+use think\Exception;
 
 class StaffInfo
 {
@@ -20,18 +21,25 @@ class StaffInfo
         if($info){
             $dirs = new Excel(RESOURCES. '/excel/'.$info->getSaveName());
             $data = $dirs->reader('2');
-            $map = array();
-            for($i = 0;$i++;$i < count($data)){
-                $map['name'] = $data[i][0];
-                $map['age'] = $data[i][1];
-                $map['telephone'] = $data[i][2];
-                $map['identity_card'] = $data[i][3];
-                $map['mail'] = $data[i][4];
-                $map['location'] = $data[i][5];
-                $map['h_name'] = $data[i][6];
-                $map['h_telephone'] = $data[i][7];
+            $map = [];
+            $error = [];
+            for ($j = 0;$j < count($data);$j++){
+                $a = $data[$j];
+                $map['name'] = $a[0];
+                $map['age'] = $a[1];
+                $map['telephone'] = $a[2];
+                $map['identity_card'] = $a[3];
+                $map['mail'] = $a[4];
+                $map['location'] = $a[5];
+                $map['h_name'] = $a[6];
+                $map['h_telephone'] = $a[7];
+                try{
+                    StaffInfoM::create($map);
+                }catch (Exception $e){
+                    array_push($error,$j+1);
+                }
             }
-            return ResultR::accessResult();
+//            return ResultR::hintResult('失败新建',(count($error) > 0 )?$error:'没有');
         }else{
             // 上传失败获取错误信息
             return ResultR::hintResult($file->getError(),'');
@@ -55,15 +63,16 @@ class StaffInfo
         return "新建失败";
     }
 
-    public function setHead()
+    public function setHead($id)
     {
         $file = request()->file('header');
         $info = $file->validate(['size'=>102400,'ext'=>'jpg,png'])->move(RESOURCES. '/excel/');
         if($info){
-            return $info->getSaveName();
+            $res = StaffInfoM::where(['id'=>$id])->update(['header'=>$info->getSaveName()]);
+            return ($res > 0 )?ResultR::accessResult('ok'):ResultR::errorResult('错误','no data');
         }else{
             // 上传失败获取错误信息
-            return $file->getError();
+            return ResultR::hintResult($file->getError(),'');
         }
     }
 }

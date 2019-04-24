@@ -26,5 +26,9 @@ return [
         'code'=> RESOURCES.'/code/',
         'excel'=> RESOURCES.'/excel/',
         'header'=> RESOURCES.'/header/'
+    ],
+    'worktime'=>[
+     'start'=>'',
+     'end'=>'',
     ]
 ];
