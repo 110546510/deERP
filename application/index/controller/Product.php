@@ -41,13 +41,15 @@ class Product
         return (!empty($res))?ResultR::accessResult($res):ResultR::hintResult('','');
     }
 
-    public function putProduct()
+    public function putProduct($data)
     {
-
+            $res = ProductM::create($data);
+        return ($res)?ResultR::accessResult($res):ResultR::errorResult($res->getError(),'no data');
     }
 
-    public function deleteProduct()
+    public function deleteProduct($id,$status)
     {
-
+        $res = $this->setClientSupplier(['id',$id],['status'=>$status]);
+        return ($res > 0 )?ResultR::accessResult($res):ResultR::errorResult('未知错误','no data');
     }
 }

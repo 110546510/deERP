@@ -28,7 +28,7 @@ return [
         'header'=> RESOURCES.'/header/'
     ],
     'worktime'=>[
-     'start'=>'',
-     'end'=>'',
+     '0'=>'8:30',
+     '1'=>'6:00',
     ]
 ];

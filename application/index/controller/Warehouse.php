@@ -10,23 +10,25 @@ namespace app\index\controller;
 
 use app\common\ResultR;
 use app\model\ WarehouseM;
+use think\Exception;
 
 
 class Warehouse
 {
-    public function setWarehouse()
+    public function lookWarehouse($map)
     {
-        return WarehouseM::where()->select();
+        return WarehouseM::where($map)->select();
     }
 
-    public function lookWarehouse()
+    public function setWarehouse($map,$data)
     {
-        return WarehouseM::where()->update();
+        return WarehouseM::where($map)->update($data);
     }
 
-    public function getWarehouse()
+    public function getAll()
     {
-
+        $res = $this->lookWarehouse([1=>1]);
+        return (!empty($res))?ResultR::accessResult($res):ResultR::errorResult($res->errorInfo(),'no data');
     }
 
     public function postWarehouse()
@@ -34,13 +36,19 @@ class Warehouse
 
     }
 
-    public function putWarehouse()
+    public function putWarehouse($data)
     {
-
+            $res = WarehouseM::create($data);
+            return (!empty($res))?ResultR::accessResult($res):ResultR::errorResult($res->getError(),'no data');
     }
 
-    public function deleteWarehouse()
+    public function deleteWarehouse($id)
     {
-
+        try {
+            $res = $this->setWarehouse(['id', $id], ['status' => 1]);
+            return ($res > 0) ? ResultR::accessResult($res) : ResultR::errorResult('未知错误', 'no data');
+        }catch (Exception $e){
+            return ResultR::hintResult($e->getMessage(),'');
+        }
     }
 }

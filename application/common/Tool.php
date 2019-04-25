@@ -29,4 +29,33 @@ class Tool
     {
         return strtoupper(substr(Pinyin::getPinyin()->output($string),0,$num));
     }
+
+    public static function TimeT($hourC,$minC){
+        if($hourC > 0){
+            return 1;
+        }
+        if($hourC == 0){
+            return ($minC < 0)?0:1;
+        }
+        return 0;
+    }
+
+    public static function TimeE($hourC,$minC)
+    {
+        if($hourC < 0){
+            return 1;
+        }
+        if($hourC == 0){
+            return ($minC >= 0)?0:1;
+        }
+        return 0;
+    }
+
+    public static function workTime($date,$explod,$status)
+    {
+        $timeY = explode($explod,$date);
+        $hourC = $timeY[0]-date("h");
+        $minC = $timeY[1]-date("i");
+        return ($status == 0)?self::TimeT($hourC,$minC):self::TimeE($hourC,$minC);
+    }
 }
