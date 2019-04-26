@@ -31,9 +31,19 @@ class Warehouse
         return (!empty($res))?ResultR::accessResult($res):ResultR::errorResult($res->errorInfo(),'no data');
     }
 
-    public function postWarehouse()
-    {
+    public function getMe($id){
+        $res = $this->lookWarehouse(['id'=>$id]);
+        return (!empty($res))?ResultR::accessResult($res):ResultR::errorResult($res->errorInfo(),'no data');
+    }
 
+    public function postWarehouse($id,$data)
+    {
+        try {
+            $res = $this->setWarehouse(['id' => $id], $data);
+            return ($res > 0) ? ResultR::accessResult('修改成功') : ResultR::hintResult('修改失败', '');
+        }catch (Exception $e){
+            return ResultR::hintResult($e->getMessage(),'');
+        }
     }
 
     public function putWarehouse($data)

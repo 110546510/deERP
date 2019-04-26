@@ -10,37 +10,55 @@ namespace app\index\controller;
 
 use app\common\ResultR;
 use app\model\ ProductInventroyM;
+use app\model\ProductM;
 
 
 class ProductWarehouse
 {
-    public function setProductWarehouse()
+    public function lookProductWarehouse($map)
     {
-        return ProductInventroyM::where()->select();
+        return ProductInventroyM::where($map)->select();
     }
 
-    public function lookProductWarehouse()
+    public function setProductWarehouse($map,$data)
     {
-        return ProductInventroyM::where()->update();
+        return ProductInventroyM::where($map)->update($data);
     }
 
-    public function getProductWarehouse()
+    public function getAll()
     {
-
+        $res = $this->lookProductWarehouse([1=>1]);
+        return (!empty($res))?ResultR::accessResult($res):ResultR::errorResult($res->errorInfo(),'no data');
     }
 
-    public function postProductWarehouse()
-    {
-
+    public function getMe($filed,$id){
+        $res = $this->lookProductWarehouse([$filed =>$id]);
+        return (!empty($res))?ResultR::accessResult($res):ResultR::errorResult($res->errorInfo(),'no data');
     }
 
-    public function putProductWarehouse()
+    public function postWarehouse($pid,$wid,$data)
     {
-
+        try {
+            $res = $this->setProductWarehouse(['p_id' => $pid,'w_id'=>$wid], $data);
+            return ($res > 0) ? ResultR::accessResult('修改成功') : ResultR::hintResult('修改失败', '');
+        }catch (Exception $e){
+            return ResultR::hintResult($e->getMessage(),'');
+        }
     }
 
-    public function deleteProductWarehouse()
+    public function putWarehouse($data)
     {
+        $res = ProductWarehouse::create($data);
+        return (!empty($res))?ResultR::accessResult($res):ResultR::errorResult($res->getError(),'no data');
+    }
 
+    public function deleteStatus($pid,$wid)
+    {
+        try {
+            $res = $this->setProductWarehouse(['p_id'=>$pid,'w_id'=>$wid], ['status' => 1]);
+            return ($res > 0) ? ResultR::accessResult($res) : ResultR::errorResult('未知错误', 'no data');
+        }catch (Exception $e){
+            return ResultR::hintResult($e->getMessage(),'');
+        }
     }
 }
