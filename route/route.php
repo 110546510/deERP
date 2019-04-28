@@ -23,7 +23,7 @@
 //});
 Route::controller('staff','index/index')->allowCrossDomain();
 Route::controller('organization','index/organization')->allowCrossDomain();
-Route::controller('staffInfo','index/StaffInfo')->allowCrossDomain();
+Route::controller('staffinfo','index/StaffInfo')->allowCrossDomain();
 
 return [
 

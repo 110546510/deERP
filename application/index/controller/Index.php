@@ -15,7 +15,7 @@ class Index
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
      */
-    public function getLogin($name,$pwd){
+    public function postLogin($name,$pwd){
         $pwd = substr(md5($pwd),21,10);
         $map = [
             'username'=> $name,
@@ -69,15 +69,10 @@ class Index
         return (isset($res))?ResultR::accessResult($res):ResultR::hintResult('没有数据','no data');
     }
 
-    /**
-     * 新建用户
-     * @param $data
-     * @return \think\response\Json
-     */
     public function newStaffLM($data)
     {
         $res = StaffLM::create($data);
-        return ($res > 0 )?ResultR::accessResult($res) : ResultR::hintResult('没有数据','no data');
+        return ($res > 0 )?$res : 1;
     }
 
     /**

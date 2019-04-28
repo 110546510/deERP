@@ -45,22 +45,53 @@ class StaffInfo
             return ResultR::hintResult($file->getError(),'');
         }
     }
-
-    public function putStaffInfo($data)
+	
+	public function lookStaffInfo($where)
     {
-        $res = $this->newStaffInfo($data);
-        return (!is_string($res))?ResultR::accessResult('新建成功'):ResultR::errorResult($res,'no data');
+        return StaffInfoM::where($where)->select();
+    }
+
+    public function setStaffInfo($where,$data)
+    {
+        return StaffInfoM::where($where)->update($data);
+    }
+
+    public function getStaffInfo($filed,$name)
+    {
+        $res = $this->lookStaffInfo([$filed=>$name]);
+        return ($res)?ResultR::accessResult($res):ResultR::errorResult($res->errorInfo(),'no data');
+    }
+
+    public function getStaffInfoAll()
+    {
+        $res = $this->lookStaffInfo('');
+        return ($res)?ResultR::accessResult($res):ResultR::errorResult($res->errorInfo(),'no data');
+    }
+
+	public function postStaffInfo($id,$data)
+    {
+        $res = $this->setStaffInfo(['id',$id],$data);
+        return ($res > 0 )?ResultR::accessResult($res):ResultR::errorResult('未知错误','no data');
+    }
+
+    public function putStaffInfo($datas)
+    {
+		if(!is_array($datas)){
+			return ResultR::errorResult('no array','');
+		}
+		try{
+        $res = $this->newStaffInfo($datas);
+		}catch(Exception $e){
+			return ResultR::errorResult("电话号码、身份证、邮箱不能重复",'no data');
+		}
+        return (!empty($res))?ResultR::accessResult($res):ResultR::errorResult($res,'no data');
+
     }
 
     public function newStaffInfo($data){
-        if(is_array($data)){
-            return "不是数组";
-        }
+    
         $res = StaffInfoM::create($data);
-        if(!empty($res)){
-            return $res->getNumRows();
-        }
-        return "新建失败";
+        return $res;
     }
 
     public function setHead($id)
