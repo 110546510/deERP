@@ -48,7 +48,7 @@ class ProductWarehouse
 
     public function putWarehouse($data)
     {
-        $res = ProductWarehouse::create($data);
+        $res = ProductInventroyM::create($data);
         return (!empty($res))?ResultR::accessResult($res):ResultR::errorResult($res->getError(),'no data');
     }
 

@@ -32,6 +32,12 @@ class Organization
         return ($res > 0)?ResultR::accessResult($res):ResultR::hintResult('没有数据','');
     }
 
+
+    public function putNew()
+    {
+        OrganizationM::create(['id'=>config('erpconfig.'),]);
+    }
+
     public function OrangizationS($who,$id)
     {
         $map['who'] = $who;

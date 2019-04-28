@@ -17,6 +17,9 @@ return [
     'sup_client_id'=>'SCI-',
     'product_id'=>'PI-',
     'warehouse_id'=>'WI-',
+        'organization'=>[ //0员工结构1产品结构2客户结构3供应商结构4仓库结构
+            'STO-','PIO-','CLI-','SUP-','WARO-'
+        ]
     ],
     'functions'=>[
 
